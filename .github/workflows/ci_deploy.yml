@@ -44,7 +44,7 @@ jobs:
 
     - name: build image
       run: |
-         docker build -t prashantsingh3105/Board . 
+         docker build -t prashantsingh3105/board . 
 
     - name: trivy FS scan
       run: |
