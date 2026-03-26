@@ -29,4 +29,29 @@ jobs:
     - name: Build with Maven
       run: mvn package --file pom.xml
 
+    - uses: actions/upload-artifacts@v4
+      with:
+        name: board-games
+        path: target/*.jar
+    - name: trivy FS scan
+      run: |
+        trivy fs --format table -o trivy-fs-report.html .
+     
+    - name: setup qemu
+      uses: docker/set-qemu-action@v3
+    - name: setup docker
+      uses: docker/setup-buildx-action@v3
+
+    - name: build image
+      run: |
+         docker build -t prashantsingh3105/Board . 
+
+    - name: trivy FS scan
+      run: |
+        trivy fs --format table -o trivy-image-report.html prashantsingh3105/Board
+
+
+
+      
+
   
